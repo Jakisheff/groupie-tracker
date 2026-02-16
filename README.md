@@ -1,4 +1,4 @@
-# Groupie Tracker - Search Bar & Filters
+# Groupie Tracker Geolocalization
 
 Groupie Tracker is a web application that fetches and displays information about music artists, their concert dates, locations, and relationships using the [Groupie Tracker API](https://groupietrackers.herokuapp.com/api). It provides a user-friendly interface to browse artists, search for specific data, filter results, and view detailed concert and band information.
 
@@ -10,6 +10,7 @@ Groupie Tracker is a web application that fetches and displays information about
     - **Creation Dates**: e.g., "1975"
     - **First Album Dates**: e.g., "14-12-1973"
 - **Artist List**: View a list of artists with names, images, creation dates, first albums, and members.
+- **Integration with Maps**: Geolocalization of concert locations.
 - **Advanced Filters**: Filter artists by creation date, first album date, number of members, and locations.
 - **Artist Details**: Access detailed artist information, including concert dates, cities, and countries.
 - **Responsive Design**: Styled with CSS for an intuitive user interface on all devices.
@@ -43,8 +44,8 @@ This context ensures you know exactly which artist a member, location, or date b
 ### Steps
 1. **Clone the repository**:
    ```bash
-   git clone https://01.tomorrow-school.ai/git/dshadykh/groupie-tracker-filters.git
-   cd groupie-tracker-filters
+   git clone https://01.tomorrow-school.ai/git/dshadykh/groupie-tracker-geolocalization.git
+   cd groupie-tracker-geolocalization
    ```
 
 2. **Install dependencies**:
@@ -69,7 +70,7 @@ This context ensures you know exactly which artist a member, location, or date b
 
 ## Project Structure
 ```
-groupie-tracker-search-bar/
+groupie-tracker-geolocalization/
 ├── main.go                  # Entry point, caches data, sets up server & routes
 ├── search.go                # Search logic and API handler
 ├── api.go                   # API data fetching and processing

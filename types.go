@@ -64,3 +64,10 @@ type Relation struct {
 type RelationResponse struct {
 	Index []Relation `json:"index"`
 }
+
+// MapMarker represents a marker on the map
+type MapMarker struct {
+	Lat   float64 `json:"lat"`
+	Lng   float64 `json:"lng"`
+	Title string  `json:"title"`
+}

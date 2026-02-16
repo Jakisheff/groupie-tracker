@@ -159,8 +159,40 @@ func artistDetailHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Geocode locations
+	var markers []MapMarker
+	uniqueLocations := make(map[string]bool)
+
+	for _, concert := range selectedArtist.Concerts {
+		locationKey := fmt.Sprintf("%s, %s", concert.City, concert.Country)
+		if uniqueLocations[locationKey] {
+			continue
+		}
+		uniqueLocations[locationKey] = true
+
+		coords, err := GeocodeLocation(concert.City, concert.Country)
+		if err != nil {
+			log.Printf("Geocoding failed for %s: %v", locationKey, err)
+			continue
+		}
+
+		markers = append(markers, MapMarker{
+			Lat:   coords.Lat,
+			Lng:   coords.Lng,
+			Title: locationKey,
+		})
+	}
+
+	data := struct {
+		*Artist
+		Markers []MapMarker
+	}{
+		Artist:  selectedArtist,
+		Markers: markers,
+	}
+
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	err = tmpl.ExecuteTemplate(w, "artist_detail.html", selectedArtist)
+	err = tmpl.ExecuteTemplate(w, "artist_detail.html", data)
 	if err != nil {
 		log.Printf("Failed to render template: %v", err)
 		renderError(w, "Failed to render page", http.StatusInternalServerError)
