@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}} - Groupie Tracker Filters</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>{{.Name}}</h1>
+        <a href="/" class="back-link">Back to Home</a>
+    </header>
+    <div class="artist-detail">
+        <div class="artist-info">
+            {{if .Image}}
+            <img src="{{.Image}}" alt="{{.Name}} Image">
+            {{end}}
+            <p><strong>Created:</strong> {{.Year}}</p>
+            <p><strong>Album:</strong> {{.Album}}</p>
+            <p><strong>Members:</strong> {{range .Members}}{{.}}, {{end}}</p>
+        </div>
+        <h2>Concerts</h2>
+        {{if .Concerts}}
+        <div class="concerts-table-container">
+            <table class="concerts-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Concerts}}
+                    <tr>
+                        <td>{{.Date}}</td>
+                        <td>{{.City}}</td>
+                        <td>{{.Country}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <p>No concerts available.</p>
+        {{end}}
+    </div>
+</body>
+
+</html>

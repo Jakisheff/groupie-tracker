@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker Filters</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Groupie Tracker Filters</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for artist, member, location, date..."
+                autocomplete="off">
+            <div id="suggestions-container" class="suggestions-container"></div>
+        </div>
+    </header>
+    <div class="main-container">
+        <aside class="filters-sidebar">
+            <h2>Filters</h2>
+            <form action="/" method="GET" class="filter-form">
+                <!-- Creation Date Range -->
+                <div class="filter-group">
+                    <h3>Creation Date</h3>
+                    <div class="range-container">
+                        <label>From: <span id="creation-min-val">{{.CurrentFilter.CreationDateMin}}</span></label>
+                        <input type="range" name="creationMin" min="{{.FilterOptions.CreationDateMin}}"
+                            max="{{.FilterOptions.CreationDateMax}}"
+                            value="{{if .CurrentFilter.CreationDateMin}}{{.CurrentFilter.CreationDateMin}}{{else}}{{.FilterOptions.CreationDateMin}}{{end}}"
+                            oninput="document.getElementById('creation-min-val').innerText = this.value">
+
+                        <label>To: <span id="creation-max-val">{{.CurrentFilter.CreationDateMax}}</span></label>
+                        <input type="range" name="creationMax" min="{{.FilterOptions.CreationDateMin}}"
+                            max="{{.FilterOptions.CreationDateMax}}"
+                            value="{{if .CurrentFilter.CreationDateMax}}{{.CurrentFilter.CreationDateMax}}{{else}}{{.FilterOptions.CreationDateMax}}{{end}}"
+                            oninput="document.getElementById('creation-max-val').innerText = this.value">
+                    </div>
+                </div>
+
+                <!-- First Album Date Range -->
+                <div class="filter-group">
+                    <h3>First Album Year</h3>
+                    <div class="range-container">
+                        <label>From: <span id="album-min-val">{{.CurrentFilter.FirstAlbumMin}}</span></label>
+                        <input type="range" name="firstAlbumMin" min="{{.FilterOptions.FirstAlbumMin}}"
+                            max="{{.FilterOptions.FirstAlbumMax}}"
+                            value="{{if .CurrentFilter.FirstAlbumMin}}{{.CurrentFilter.FirstAlbumMin}}{{else}}{{.FilterOptions.FirstAlbumMin}}{{end}}"
+                            oninput="document.getElementById('album-min-val').innerText = this.value">
+
+                        <label>To: <span id="album-max-val">{{.CurrentFilter.FirstAlbumMax}}</span></label>
+                        <input type="range" name="firstAlbumMax" min="{{.FilterOptions.FirstAlbumMin}}"
+                            max="{{.FilterOptions.FirstAlbumMax}}"
+                            value="{{if .CurrentFilter.FirstAlbumMax}}{{.CurrentFilter.FirstAlbumMax}}{{else}}{{.FilterOptions.FirstAlbumMax}}{{end}}"
+                            oninput="document.getElementById('album-max-val').innerText = this.value">
+                    </div>
+                </div>
+
+                <!-- Number of Members -->
+                <div class="filter-group">
+                    <h3>Number of Members</h3>
+                    <div class="checkbox-group">
+                        {{range .FilterOptions.Members}}
+                        <label>
+                            <input type="checkbox" name="members" value="{{.}}" {{if contains $.CurrentFilter.Members
+                                .}}checked{{end}}> {{.}} Members
+                        </label>
+                        {{end}}
+                    </div>
+                </div>
+
+                <!-- Locations -->
+                <div class="filter-group">
+                    <h3>Locations</h3>
+                    <input type="text" id="location-search" placeholder="Search locations..."
+                        onkeyup="filterLocations()">
+                    <div class="checkbox-group scrollable" id="location-options">
+                        {{range .FilterOptions.Locations}}
+                        <label class="location-option">
+                            <input type="checkbox" name="locations" value="{{.}}" {{if containsString
+                                $.CurrentFilter.Locations .}}checked{{end}}> {{.}}
+                        </label>
+                        {{end}}
+                    </div>
+                </div>
+
+                <button type="submit" class="apply-filters-btn">Apply Filters</button>
+            </form>
+        </aside>
+
+        <div class="artists-container">
+            {{range .Artists}}
+            <a href="/artist/{{.ID}}" class="artist-card" style="text-decoration: none;">
+                <div class="flip-container">
+                    <div class="flipper">
+                        <div class="front">
+                            {{if .Image}}
+                            <img src="{{.Image}}" alt="{{.Name}} Image">
+                            {{end}}
+                            <h2 class="artist-name">{{.Name}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {{end}}
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+    <script src="/static/search.js"></script>
+</body>
+
+</html>

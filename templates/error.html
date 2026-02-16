@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{.StatusCode}} - Groupie Tracker Filters</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>GROUPIE TRACKER FILTERS</h1>
+        </header>
+        <main>
+            <section class="error-section">
+                <h2 class="error-code">{{.StatusCode}}</h2>
+                <h3 class="error-title">Error</h3>
+                <p class="error-message">{{.Message}}</p>
+                <a href="/" class="back-link">Go Home</a>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>
